@@ -1,6 +1,4 @@
-
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
-
 const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 async function tmdbRequest(endpoint) {
@@ -8,8 +6,10 @@ async function tmdbRequest(endpoint) {
     throw new Error("TMDB API key is missing.");
   }
 
+  const separator = endpoint.includes("?") ? "&" : "?";
+
   const response = await fetch(
-    `${TMDB_BASE_URL}${endpoint}&api_key=${TMDB_API_KEY}`,
+    `${TMDB_BASE_URL}${endpoint}${separator}api_key=${TMDB_API_KEY}`,
   );
 
   if (!response.ok) {
@@ -35,4 +35,20 @@ export async function searchMovies(query) {
   );
 
   return data.results;
+}
+
+export async function getMovieDetails(movieId) {
+  const data = await tmdbRequest(
+    `/movie/${movieId}?language=en-US`,
+  );
+
+  return data;
+}
+
+export async function getMovieProviders(movieId) {
+  const data = await tmdbRequest(
+    `/movie/${movieId}/watch/providers`,
+  );
+
+  return data.results?.US || null;
 }
