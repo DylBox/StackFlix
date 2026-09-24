@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
+import Auth from "./Auth";
+import { supabase } from "./supabaseClient";
+
 import {
   getPopularMovies,
   searchMovies,
@@ -23,8 +26,33 @@ function App() {
   const [movieProviders, setMovieProviders] = useState(null);
   const [detailsLoading, setDetailsLoading] = useState(false);
 
+  const [user, setUser] = useState(null);
+  const [showAuth, setShowAuth] = useState(false);
+
   useEffect(() => {
     loadPopularMovies();
+  }, []);
+
+  useEffect(() => {
+    const getCurrentUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      setUser(user);
+    };
+
+  getCurrentUser();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
   async function loadPopularMovies() {
@@ -150,6 +178,14 @@ function App() {
     return uniqueProviders;
   }
 
+  if (showAuth) {
+  return (
+    <Auth
+      onClose={() => setShowAuth(false)}
+    />
+  );
+}
+
   if (selectedMovie) {
   return (
     <div className="app">
@@ -176,9 +212,28 @@ function App() {
           </a>
         </nav>
 
-        <a className="nav-login" href="#login">
-          Sign In
-        </a>
+        <button
+          className="nav-login"
+          onClick={() => setShowAuth(true)}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "#ffc107",
+            color: "#111111",
+            border: "1px solid #ffc107",
+            borderRadius: "8px",
+            padding: "10px 20px",
+            fontFamily: "inherit",
+            fontSize: "14px",
+            fontWeight: "800",
+            lineHeight: "1.2",
+            cursor: "pointer",
+            appearance: "none",
+          }}
+        >
+          Login
+        </button>
       </header>
 
       {/* Main Details Page */}
@@ -404,9 +459,28 @@ function App() {
           <a href="#about">About</a>
         </nav>
 
-        <a className="nav-login" href="#login">
-          Sign In
-        </a>
+        <button
+          className="nav-login"
+          onClick={() => setShowAuth(true)}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "#ffc107",
+            color: "#111111",
+            border: "1px solid #ffc107",
+            borderRadius: "8px",
+            padding: "10px 20px",
+            fontFamily: "inherit",
+            fontSize: "14px",
+            fontWeight: "800",
+            lineHeight: "1.2",
+            cursor: "pointer",
+            appearance: "none",
+          }}
+        >
+          Login
+        </button>
       </header>
 
       <main>
