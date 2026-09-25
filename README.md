@@ -1,16 +1,49 @@
-# React + Vite
+# Stackflix
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## Description
 
-Currently, two official plugins are available:
+Stackflix is a movie and TV discovery platform that allows users
+to explore movies and television shows, view details, discover
+streaming options, and maintain a personal watchlist.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Users can mark titles as watched, assign personal ratings,
+write notes, and track TV episode progress.
 
-## React Compiler
+## Technologies
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- Vite
+- JavaScript
+- Supabase Authentication
+- Supabase Database
+- TMDB API
+- CSS
+- GitHub
 
-## Expanding the Oxlint configuration
+## Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+- User registration and login
+- Movie and TV show discovery
+- Search
+- Movie details and trailers
+- Cast and crew information
+- Personal watchlist
+- Watched status and star ratings
+- Notes
+- TV viewing progress
+
+## Setup Instructions
+
+1. Clone the repository.
+2. Install dependencies with npm install.
+3. Create a .env.local file.
+4. Add the required TMDB and Supabase environment variables.
+5. Run npm run dev.
+
+## Deployed Application
+
+Missing -> [Add your Netlify URL here]
+
+## Demo Video
+
+Missing -> [Add your unlisted YouTube video here]
