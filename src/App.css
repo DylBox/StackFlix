@@ -2489,4 +2489,25 @@ a {
     color: #111111 !important;
     transform: translateY(-1px);
   }
+
+  .user-menu {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+  .user-menu span {
+    color: #ffffff;
+    font-size: 0.85rem;
+  }
+
+  .user-menu button {
+    background: #f5c518;
+    color: #111111;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-weight: 700;
+    cursor: pointer;
+  }
 }
