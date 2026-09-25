@@ -1,43 +1,54 @@
-
 import { useState } from "react";
-import { supabase } from "./supabaseClient";
 import "./Auth.css";
+import { supabase } from "./supabaseClient";
 
-export default function Auth({ onClose }) {
-  const [isLogin, setIsLogin] = useState(true);
+function Auth({ onClose }) {
+  const [isRegistering, setIsRegistering] = useState(false);
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  function switchMode() {
+    setIsRegistering((currentMode) => !currentMode);
+    setUsername("");
+    setErrorMessage("");
+    setSuccessMessage("");
+  }
 
-    setLoading(true);
+  async function handleSubmit(event) {
+    event.preventDefault();
     setErrorMessage("");
     setSuccessMessage("");
 
+    const cleanUsername = username.trim();
+    const cleanEmail = email.trim();
+
+    if (isRegistering && !cleanUsername) {
+      setErrorMessage("Please enter a username.");
+      return;
+    }
+
+    if (!cleanEmail || !password) {
+      setErrorMessage("Please enter your email and password.");
+      return;
+    }
+
     try {
-      if (isLogin) {
-        const { error } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
+      setLoading(true);
 
-        if (error) {
-          throw error;
-        }
-
-        setSuccessMessage("Successfully signed in!");
-
-        if (onClose) {
-          onClose();
-        }
-      } else {
+      if (isRegistering) {
         const { data, error } = await supabase.auth.signUp({
-          email,
+          email: cleanEmail,
           password,
+          options: {
+            data: {
+              username: cleanUsername,
+              full_name: cleanUsername,
+            },
+          },
         });
 
         if (error) {
@@ -45,112 +56,112 @@ export default function Auth({ onClose }) {
         }
 
         if (data.session) {
-          setSuccessMessage("Your account was created successfully!");
-
-          if (onClose) {
-            onClose();
-          }
+          setSuccessMessage("Your account was created successfully.");
+          onClose();
         } else {
           setSuccessMessage(
-            "Account created! Check your email to confirm your account.",
+            "Account created. Check your email to confirm your account before logging in.",
           );
         }
+      } else {
+        const { error } = await supabase.auth.signInWithPassword({
+          email: cleanEmail,
+          password,
+        });
+
+        if (error) {
+          throw error;
+        }
+
+        onClose();
       }
-    } catch (error) {
-      setErrorMessage(error.message);
+    } catch (requestError) {
+      setErrorMessage(requestError.message || "Something went wrong.");
     } finally {
       setLoading(false);
     }
-  };
-
-  const toggleMode = () => {
-    setIsLogin(!isLogin);
-    setErrorMessage("");
-    setSuccessMessage("");
-  };
+  }
 
   return (
-    <section className="auth-page">
+    <div className="auth-page">
       <div className="auth-card">
-        <button className="auth-close" onClick={onClose}>
+        <button className="auth-close" onClick={onClose} type="button">
           ×
         </button>
 
-        <div className="auth-header">
-          <div className="auth-logo">
-            STACK<span>FLIX</span>
-          </div>
+        <p className="auth-eyebrow">STACKFLIX</p>
 
-          <h1>{isLogin ? "Welcome Back" : "Create Your Account"}</h1>
+        <h1>{isRegistering ? "Create your account" : "Welcome back"}</h1>
 
-          <p>
-            {isLogin
-              ? "Sign in to continue discovering movies."
-              : "Join Stackflix and build your personal watchlist."}
-          </p>
-        </div>
+        <p className="auth-description">
+          {isRegistering
+            ? "Choose a username so Stackflix can welcome you personally."
+            : "Log in to manage your personal movie watchlist."}
+        </p>
 
         <form className="auth-form" onSubmit={handleSubmit}>
-          <div className="auth-field">
-            <label htmlFor="email">Email Address</label>
+          {isRegistering && (
+            <label>
+              Username
+              <input
+                type="text"
+                placeholder="Enter a username"
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+                maxLength={30}
+                autoComplete="nickname"
+                required
+              />
+            </label>
+          )}
 
+          <label>
+            Email
             <input
-              id="email"
               type="email"
               placeholder="you@example.com"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
+              autoComplete="email"
               required
             />
-          </div>
+          </label>
 
-          <div className="auth-field">
-            <label htmlFor="password">Password</label>
-
+          <label>
+            Password
             <input
-              id="password"
               type="password"
               placeholder="Enter your password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              minLength={6}
+              autoComplete={isRegistering ? "new-password" : "current-password"}
               required
             />
-          </div>
+          </label>
 
-          {errorMessage && (
-            <div className="auth-message auth-error">
-              {errorMessage}
-            </div>
-          )}
-
+          {errorMessage && <p className="auth-message auth-error">{errorMessage}</p>}
           {successMessage && (
-            <div className="auth-message auth-success">
-              {successMessage}
-            </div>
+            <p className="auth-message auth-success">{successMessage}</p>
           )}
 
           <button className="auth-submit" type="submit" disabled={loading}>
             {loading
               ? "Please wait..."
-              : isLogin
-                ? "Sign In"
-                : "Create Account"}
+              : isRegistering
+                ? "Create Account"
+                : "Log In"}
           </button>
         </form>
 
-        <div className="auth-switch">
-          <span>
-            {isLogin
-              ? "Don't have an account?"
-              : "Already have an account?"}
-          </span>
-
-          <button onClick={toggleMode}>
-            {isLogin ? "Create Account" : "Sign In"}
+        <p className="auth-switch">
+          {isRegistering ? "Already have an account?" : "New to Stackflix?"}{" "}
+          <button type="button" onClick={switchMode}>
+            {isRegistering ? "Log in" : "Create an account"}
           </button>
-        </div>
+        </p>
       </div>
-    </section>
+    </div>
   );
 }
+
+export default Auth;

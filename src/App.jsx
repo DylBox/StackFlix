@@ -5,6 +5,12 @@ import Auth from "./Auth";
 import { supabase } from "./supabaseClient";
 
 import {
+  getUserWatchlist,
+  addToWatchlist,
+  removeFromWatchlist,
+} from "./watchlist";
+
+import {
   getPopularMovies,
   searchMovies,
   getMovieDetails,
@@ -29,31 +35,60 @@ function App() {
   const [user, setUser] = useState(null);
   const [showAuth, setShowAuth] = useState(false);
 
-  useEffect(() => {
-    loadPopularMovies();
-  }, []);
+  const [watchlist, setWatchlist] = useState([]);
+  const [watchlistLoading, setWatchlistLoading] = useState(false);
 
   useEffect(() => {
     const getCurrentUser = async () => {
       const {
-        data: { user },
+        data: { user: currentUser },
       } = await supabase.auth.getUser();
 
-      setUser(user);
+      setUser(currentUser);
+
+      if (currentUser) {
+        await loadUserWatchlist(currentUser.id);
+      }
     };
 
-  getCurrentUser();
+    getCurrentUser();
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
+      const currentUser = session?.user ?? null;
+
+      setUser(currentUser);
+
+      if (currentUser) {
+        loadUserWatchlist(currentUser.id);
+      } else {
+        setWatchlist([]);
+      }
     });
 
     return () => {
       subscription.unsubscribe();
     };
   }, []);
+
+  useEffect(() => {
+    loadPopularMovies();
+  }, []);
+
+  async function loadUserWatchlist(userId) {
+    try {
+      setWatchlistLoading(true);
+
+      const savedMovies = await getUserWatchlist(userId);
+
+      setWatchlist(savedMovies);
+    } catch (requestError) {
+      console.error("Error loading watchlist:", requestError);
+    } finally {
+      setWatchlistLoading(false);
+    }
+  }
 
   async function loadPopularMovies() {
     try {
@@ -131,6 +166,20 @@ function App() {
 
     setActiveSearch("");
     setSearchQuery("");
+  }
+
+  function getWelcomeMessage() {
+    const displayName =
+      user?.user_metadata?.username ||
+      user?.user_metadata?.full_name ||
+      user?.user_metadata?.name;
+
+    if (displayName) {
+      const firstName = displayName.trim().split(/\s+/)[0];
+      return `Welcome, ${firstName}`;
+    }
+
+    return "Welcome back";
   }
 
   function getReleaseYear(releaseDate) {
@@ -212,29 +261,83 @@ function App() {
           </a>
         </nav>
 
-        <button
-          className="nav-login"
-          onClick={() => setShowAuth(true)}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: "#ffc107",
-            color: "#111111",
-            border: "1px solid #ffc107",
-            borderRadius: "8px",
-            padding: "10px 20px",
-            fontFamily: "inherit",
-            fontSize: "14px",
-            fontWeight: "800",
-            lineHeight: "1.2",
-            cursor: "pointer",
-            appearance: "none",
-          }}
-        >
-          Login
-        </button>
-      </header>
+          {user ? (
+            <div
+              className="user-menu"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                gap: "16px",
+                marginLeft: "auto",
+                flexShrink: 0,
+                minWidth: 0,
+              }}
+            >
+              <span
+                className="welcome-message"
+                style={{
+                  color: "#f5f5f5",
+                  fontSize: "14px",
+                  fontWeight: "600",
+                  lineHeight: "1.2",
+                  whiteSpace: "nowrap",
+                  textAlign: "right",
+                }}
+              >
+                {getWelcomeMessage()}
+              </span>
+
+              <button
+                className="nav-login"
+                onClick={async () => {
+                  await supabase.auth.signOut();
+                }}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "#ffc107",
+                  color: "#111111",
+                  border: "1px solid #ffc107",
+                  borderRadius: "8px",
+                  padding: "10px 20px",
+                  fontFamily: "inherit",
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  lineHeight: "1.2",
+                  cursor: "pointer",
+                  appearance: "none",
+                }}
+              >
+                Sign Out
+              </button>
+            </div>
+          ) : (
+            <button
+              className="nav-login"
+              onClick={() => setShowAuth(true)}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "#ffc107",
+                color: "#111111",
+                border: "1px solid #ffc107",
+                borderRadius: "8px",
+                padding: "10px 20px",
+                fontFamily: "inherit",
+                fontSize: "14px",
+                fontWeight: "800",
+                lineHeight: "1.2",
+                cursor: "pointer",
+                appearance: "none",
+              }}
+            >
+              Login
+            </button>
+          )}
+        </header>
 
       {/* Main Details Page */}
       <main className="details-page">
@@ -459,28 +562,82 @@ function App() {
           <a href="#about">About</a>
         </nav>
 
-        <button
-          className="nav-login"
-          onClick={() => setShowAuth(true)}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: "#ffc107",
-            color: "#111111",
-            border: "1px solid #ffc107",
-            borderRadius: "8px",
-            padding: "10px 20px",
-            fontFamily: "inherit",
-            fontSize: "14px",
-            fontWeight: "800",
-            lineHeight: "1.2",
-            cursor: "pointer",
-            appearance: "none",
-          }}
-        >
-          Login
-        </button>
+          {user ? (
+            <div
+              className="user-menu"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                gap: "16px",
+                marginLeft: "auto",
+                flexShrink: 0,
+                minWidth: 0,
+              }}
+            >
+              <span
+                className="welcome-message"
+                style={{
+                  color: "#f5f5f5",
+                  fontSize: "14px",
+                  fontWeight: "600",
+                  lineHeight: "1.2",
+                  whiteSpace: "nowrap",
+                  textAlign: "right",
+                }}
+              >
+                {getWelcomeMessage()}
+              </span>
+
+              <button
+                className="nav-login"
+                onClick={async () => {
+                  await supabase.auth.signOut();
+                }}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "#ffc107",
+                  color: "#111111",
+                  border: "1px solid #ffc107",
+                  borderRadius: "8px",
+                  padding: "10px 20px",
+                  fontFamily: "inherit",
+                  fontSize: "14px",
+                  fontWeight: "800",
+                  lineHeight: "1.2",
+                  cursor: "pointer",
+                  appearance: "none",
+                }}
+              >
+                Sign Out
+              </button>
+            </div>
+          ) : (
+            <button
+              className="nav-login"
+              onClick={() => setShowAuth(true)}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "#ffc107",
+                color: "#111111",
+                border: "1px solid #ffc107",
+                borderRadius: "8px",
+                padding: "10px 20px",
+                fontFamily: "inherit",
+                fontSize: "14px",
+                fontWeight: "800",
+                lineHeight: "1.2",
+                cursor: "pointer",
+                appearance: "none",
+              }}
+            >
+              Login
+            </button>
+          )}
       </header>
 
       <main>
@@ -640,15 +797,51 @@ function App() {
 
                     <button
                       className="watchlist-button"
-                      onClick={(event) => {
+                      onClick={async (event) => {
                         event.stopPropagation();
 
-                        alert(
-                          `"${movie.title}" will be added to your watchlist in a future update.`,
+                        if (!user) {
+                          setShowAuth(true);
+                          return;
+                        }
+
+                        const alreadySaved = watchlist.some(
+                          (savedMovie) => savedMovie.movie_id === movie.id,
                         );
+
+                        if (alreadySaved) {
+                          try {
+                            await removeFromWatchlist(user.id, movie.id);
+
+                            setWatchlist((currentWatchlist) =>
+                              currentWatchlist.filter(
+                                (savedMovie) => savedMovie.movie_id !== movie.id,
+                              ),
+                            );
+                          } catch (requestError) {
+                            console.error("Error removing movie:", requestError);
+                            alert("We couldn't remove this movie. Please try again.");
+                          }
+
+                          return;
+                        }
+
+                        try {
+                          const savedMovie = await addToWatchlist(user.id, movie);
+
+                          setWatchlist((currentWatchlist) => [
+                            savedMovie,
+                            ...currentWatchlist,
+                          ]);
+                        } catch (requestError) {
+                          console.error("Error adding movie:", requestError);
+                          alert("We couldn't add this movie. Please try again.");
+                        }
                       }}
                     >
-                      + Add to Watchlist
+                      {watchlist.some((savedMovie) => savedMovie.movie_id === movie.id)
+                        ? "✓ In Watchlist"
+                        : "+ Add to Watchlist"}
                     </button>
                   </div>
                 </article>
