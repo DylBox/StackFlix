@@ -1363,3 +1363,618 @@ input:focus-visible {
     grid-template-columns: 1fr;
   }
 }
+
+/* Stackflix cinematic enhancements */
+.nav-links button,
+.nav-about-button,
+.logo-button,
+.nav-login,
+.watchlist-back-button,
+.details-back-button,
+.primary-button,
+.secondary-button,
+.watchlist-button,
+.status-toggle,
+.remove-link,
+.small-action,
+.season-button,
+.text-button {
+  font-family: inherit;
+}
+
+.nav-links button,
+.nav-about-button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: #b5b5b5;
+  cursor: pointer;
+}
+
+.nav-links button:hover,
+.nav-about-button:hover,
+.nav-links .active-nav-link {
+  color: #ffc107;
+}
+
+.content-switcher {
+  display: inline-flex;
+  gap: 4px;
+  margin: 22px 0 14px;
+  padding: 4px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 999px;
+  background: rgba(255,255,255,.04);
+}
+
+.content-switcher button {
+  border: 0;
+  border-radius: 999px;
+  padding: 9px 18px;
+  background: transparent;
+  color: #a8a8a8;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.content-switcher button.active {
+  background: #ffc107;
+  color: #111;
+}
+
+.cinema-feature {
+  width: 220px;
+  min-height: 300px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgba(255,193,7,.4);
+  border-radius: 18px;
+  background: linear-gradient(145deg, #292218, #111 65%);
+  box-shadow: 0 24px 70px rgba(0,0,0,.4);
+  transform: rotate(7deg);
+}
+
+.cinema-feature span,
+.cinema-feature small {
+  color: #ffc107;
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 800;
+}
+
+.cinema-feature strong {
+  color: #f5f5f5;
+  font-size: 36px;
+  line-height: .95;
+  letter-spacing: -1px;
+}
+
+.cinema-reel {
+  position: absolute;
+  right: 10%;
+  bottom: 8%;
+  color: #ffc107;
+  font-size: 90px;
+  opacity: .22;
+}
+
+.watchlist-back-button,
+.details-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 12px 20px;
+  border: 1px solid rgba(255,193,7,.45);
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(255,193,7,.16), rgba(255,255,255,.04));
+  color: #f5f5f5;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease, border-color .2s ease;
+}
+
+.watchlist-back-button span,
+.details-back-button span {
+  font-size: 22px;
+  color: #ffc107;
+}
+
+.watchlist-back-button:hover,
+.details-back-button:hover {
+  border-color: #ffc107;
+  background: rgba(255,193,7,.2);
+  transform: translateX(-4px);
+}
+
+.details-back-button { margin-bottom: 28px; }
+
+.details-hero {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #2e2e2e;
+  border-radius: 22px;
+  background-color: #151515;
+  background-size: cover;
+  background-position: center;
+}
+
+.details-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(10,10,10,.98), rgba(10,10,10,.88) 48%, rgba(10,10,10,.65));
+}
+
+.details-layout,
+.details-overview-box {
+  position: relative;
+  z-index: 1;
+}
+
+.details-layout {
+  display: grid;
+  grid-template-columns: minmax(230px, 330px) minmax(0, 1fr);
+  gap: 44px;
+  padding: 46px;
+}
+
+.details-poster-container { align-self: start; }
+.details-poster { width: 100%; display: block; border-radius: 14px; box-shadow: 0 20px 55px rgba(0,0,0,.55); }
+.details-content { min-width: 0; align-self: center; }
+.details-title { max-width: 850px; margin: 8px 0 14px; font-size: clamp(34px, 5vw, 70px); line-height: 1.02; overflow-wrap: anywhere; }
+.details-tagline { max-width: 680px; color: #d1d1d1; font-size: 18px; line-height: 1.6; }
+.details-metadata { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin: 26px 0; }
+.metadata-card { padding: 16px; border: 1px solid rgba(255,255,255,.13); border-radius: 12px; background: rgba(255,255,255,.055); min-width: 0; }
+.metadata-label { display: block; margin-bottom: 8px; color: #9d9d9d; font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px; }
+.metadata-value { display: block; color: #f5f5f5; font-size: 14px; overflow-wrap: anywhere; }
+.metadata-value.rating { color: #ffc107; }
+.details-genres { display: flex; flex-wrap: wrap; gap: 8px; }
+.genre-tag { padding: 7px 11px; border: 1px solid rgba(255,193,7,.32); border-radius: 999px; color: #f8d36a; font-size: 12px; }
+.details-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.external-links { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 22px; }
+.external-links a { color: #bfbfbf; font-size: 12px; text-decoration: none; }
+.external-links a:hover { color: #ffc107; }
+.details-overview-box { margin: 0 46px 46px; padding: 28px; border: 1px solid rgba(255,255,255,.14); border-radius: 16px; background: rgba(0,0,0,.34); }
+.details-overview-box p:last-child { max-width: 1000px; color: #d2d2d2; line-height: 1.8; }
+
+.info-panel { margin-top: 26px; padding: 32px; border: 1px solid #2d2d2d; border-radius: 18px; background: #151515; }
+.info-panel h2 { margin: 5px 0 8px; }
+.info-panel > p:not(.details-label) { color: #a8a8a8; }
+.provider-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 12px; margin-top: 24px; }
+.provider-card { display: flex; align-items: center; gap: 12px; min-height: 76px; padding: 12px; border: 1px solid #363636; border-radius: 12px; background: #1c1c1c; color: #f5f5f5; text-decoration: none; transition: border-color .2s ease, transform .2s ease; }
+.provider-card:hover { border-color: #ffc107; transform: translateY(-3px); }
+.provider-card img { width: 42px; height: 42px; border-radius: 9px; object-fit: cover; }
+.provider-card span { font-size: 13px; font-weight: 700; }
+.provider-card .provider-arrow { margin-left: auto; color: #ffc107; }
+.streaming-link { display: inline-block; margin-top: 22px; color: #ffc107; font-weight: 800; text-decoration: none; }
+
+.people-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr)); gap: 16px; margin-top: 22px; }
+.person-card { min-width: 0; text-align: center; }
+.person-photo { aspect-ratio: 2 / 3; overflow: hidden; margin-bottom: 10px; border-radius: 10px; background: #252525; }
+.person-photo img { width: 100%; height: 100%; object-fit: cover; }
+.person-photo span { display: grid; place-items: center; height: 100%; color: #ffc107; font-size: 30px; }
+.person-card strong, .person-card span { display: block; overflow-wrap: anywhere; }
+.person-card strong { font-size: 13px; }
+.person-card span { margin-top: 4px; color: #929292; font-size: 11px; }
+.crew-list { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 24px; color: #c2c2c2; font-size: 12px; }
+
+.season-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.season-button { display: flex; flex-direction: column; gap: 5px; padding: 12px 16px; border: 1px solid #3a3a3a; border-radius: 10px; background: #202020; color: #f5f5f5; cursor: pointer; }
+.season-button span { color: #999; font-size: 11px; }
+.season-button.active, .season-button:hover { border-color: #ffc107; background: rgba(255,193,7,.1); }
+.episode-list { margin-top: 24px; }
+.episode-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 16px 0; border-bottom: 1px solid #303030; }
+.episode-row strong { font-size: 14px; }
+.episode-row p { max-width: 720px; margin: 7px 0 0; color: #999; font-size: 12px; line-height: 1.5; }
+.small-action { flex-shrink: 0; padding: 9px 12px; border: 1px solid #555; border-radius: 8px; background: transparent; color: #ffc107; cursor: pointer; }
+
+.media-type-badge { position: absolute; left: 10px; top: 10px; padding: 5px 7px; border-radius: 5px; background: rgba(0,0,0,.8); color: #ffc107; font-size: 10px; font-weight: 800; }
+.personal-score-badge { position: absolute; right: 10px; bottom: 10px; padding: 5px 8px; border-radius: 5px; background: rgba(0,0,0,.86); color: #ffc107; font-size: 11px; font-weight: 800; }
+.watchlist-controls { display: flex; flex-direction: column; gap: 12px; margin-top: 14px; }
+.score-field { display: flex; flex-direction: column; gap: 5px; }
+.score-field > span, .notes-field > span, .episode-progress > span { color: #999; font-size: 11px; font-weight: 700; }
+.star-rating { display: flex; gap: 2px; }
+.star { border: 0; padding: 0; background: transparent; color: #4a4a4a; font-size: 22px; line-height: 1; cursor: pointer; }
+.star.active { color: #ffc107; }
+.star:hover { color: #ffe08a; }
+.star:disabled { cursor: default; }
+.notes-field { display: flex; flex-direction: column; gap: 6px; }
+.notes-field textarea { width: 100%; box-sizing: border-box; resize: vertical; padding: 9px; border: 1px solid #3b3b3b; border-radius: 8px; background: #111; color: #eee; font: inherit; font-size: 12px; }
+.episode-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px; }
+.episode-inputs input { min-width: 0; padding: 8px; border: 1px solid #3b3b3b; border-radius: 8px; background: #111; color: #eee; }
+
+@media (max-width: 900px) {
+  .details-layout { grid-template-columns: 220px minmax(0,1fr); gap: 26px; padding: 28px; }
+  .details-overview-box { margin: 0 28px 28px; }
+  .details-metadata { grid-template-columns: 1fr; }
+  .cinema-feature { width: 170px; min-height: 250px; }
+}
+
+@media (max-width: 640px) {
+  .details-layout { grid-template-columns: 1fr; padding: 20px; }
+  .details-poster-container { max-width: 280px; margin: 0 auto; }
+  .details-overview-box { margin: 0 20px 20px; padding: 20px; }
+  .info-panel { padding: 22px; }
+  .episode-row { align-items: flex-start; flex-direction: column; }
+  .hero-decoration { display: none; }
+  .watchlist-back-button, .details-back-button { min-height: 44px; padding: 10px 15px; }
+}
+
+/* Final polish: notes, rating prompts, people links, episodes, and Watch Party */
+.notes-dropdown {
+  border: 1px solid #343434;
+  border-radius: 10px;
+  background: #111111;
+  overflow: hidden;
+}
+
+.notes-dropdown summary {
+  padding: 10px 12px;
+  color: #e7e7e7;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  list-style-position: inside;
+}
+
+.notes-dropdown textarea {
+  display: block;
+  width: calc(100% - 24px);
+  margin: 0 12px 8px;
+  resize: vertical;
+  padding: 10px;
+  border: 1px solid #3b3b3b;
+  border-radius: 8px;
+  background: #0b0b0b;
+  color: #eeeeee;
+  font: inherit;
+  font-size: 12px;
+}
+
+.notes-dropdown small {
+  display: block;
+  padding: 0 12px 10px;
+  color: #858585;
+  font-size: 10px;
+}
+
+.rating-prompt {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px;
+  border: 1px solid rgba(255, 193, 7, 0.3);
+  border-radius: 9px;
+  background: rgba(255, 193, 7, 0.08);
+}
+
+.rating-prompt strong {
+  color: #ffc107;
+  font-size: 12px;
+}
+
+.rating-prompt span {
+  color: #b8b8b8;
+  font-size: 11px;
+}
+
+.rating-prompt button {
+  align-self: flex-start;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #dddddd;
+  font-size: 11px;
+  text-decoration: underline;
+}
+
+.person-card,
+.crew-person-card {
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.person-card:hover,
+.crew-person-card:hover {
+  color: #ffc107;
+  transform: translateY(-4px);
+}
+
+.person-card small {
+  display: block;
+  margin-top: 7px;
+  color: #ffc107;
+  font-size: 10px;
+}
+
+.subsection-heading {
+  margin: 30px 0 12px;
+  color: #eeeeee;
+  font-size: 18px;
+}
+
+.crew-people-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.crew-person-card {
+  text-align: center;
+}
+
+.crew-photo {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  background: #252525;
+}
+
+.crew-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.crew-photo span {
+  display: grid;
+  height: 100%;
+  place-items: center;
+  color: #ffc107;
+  font-size: 30px;
+}
+
+.crew-person-card strong,
+.crew-person-card span {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.crew-person-card strong {
+  font-size: 13px;
+}
+
+.crew-person-card span {
+  margin-top: 5px;
+  color: #929292;
+  font-size: 11px;
+}
+
+.episode-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-width: 0;
+}
+
+.episode-still {
+  width: 138px;
+  aspect-ratio: 16 / 9;
+  flex-shrink: 0;
+  border-radius: 9px;
+  object-fit: cover;
+  background: #252525;
+}
+
+.episode-still.placeholder {
+  display: grid;
+  place-items: center;
+  color: #ffc107;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.watch-party-page {
+  min-height: 75vh;
+  padding: 90px 8%;
+}
+
+.watch-party-hero {
+  max-width: 820px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.watch-party-hero h1 {
+  margin: 12px 0 20px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(38px, 5vw, 70px);
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.watch-party-hero p:not(.section-label) {
+  color: #a9a9b0;
+  line-height: 1.8;
+}
+
+.watch-party-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.watch-party-actions button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.watch-party-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  max-width: 1100px;
+  margin: 60px auto 0;
+}
+
+.watch-party-card {
+  padding: 28px;
+  border: 1px solid #303030;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #1c1c1f, #111113);
+}
+
+.watch-party-card > span {
+  color: #ffc107;
+  font-size: 30px;
+}
+
+.watch-party-card h3 {
+  margin: 18px 0 8px;
+}
+
+.watch-party-card p {
+  margin: 0;
+  color: #999999;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.hero-poster-stack {
+  position: relative;
+  width: min(100%, 420px);
+  min-height: 360px;
+}
+
+.hero-poster-card {
+  position: absolute;
+  width: 190px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 193, 7, 0.35);
+  border-radius: 16px;
+  background: #19191b;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.hero-poster-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+}
+
+.hero-poster-label {
+  display: block;
+  padding: 10px 12px;
+  color: #f5f5f5;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hero-poster-1 {
+  top: 32px;
+  left: 0;
+  transform: rotate(-9deg);
+}
+
+.hero-poster-2 {
+  top: 0;
+  left: 112px;
+  z-index: 2;
+  transform: rotate(2deg);
+}
+
+.hero-poster-3 {
+  top: 44px;
+  right: 0;
+  transform: rotate(10deg);
+}
+
+.hero-poster-card:hover {
+  z-index: 5;
+  border-color: #ffc107;
+  transform: translateY(-12px) rotate(0deg);
+}
+
+@media (max-width: 900px) {
+  .watch-party-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-poster-stack {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .episode-main {
+    flex-direction: column;
+  }
+
+  .episode-still {
+    width: 100%;
+    max-width: 260px;
+  }
+
+  .hero-poster-card {
+    width: 145px;
+  }
+
+  .hero-poster-2 {
+    left: 85px;
+  }
+}
+
+/* Final polish: watchlist separation and cinematic hero cleanup */
+.watchlist-group + .watchlist-group {
+  padding-top: 44px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.hero-decoration {
+  position: relative;
+  isolation: isolate;
+}
+
+.hero-decoration::before {
+  content: "";
+  position: absolute;
+  inset: 8% -8% 0;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 193, 7, 0.13), transparent 68%);
+  filter: blur(18px);
+  pointer-events: none;
+}
+
+.hero-poster-card {
+  background: linear-gradient(180deg, #202024, #111113);
+}
+
+.hero-poster-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, 0.55));
+}
+
+.hero-poster-label {
+  position: relative;
+  z-index: 1;
+  background: #19191b;
+}
+
+/* Prevent native controls from inheriting card click behavior visually */
+.watchlist-controls button,
+.watchlist-controls summary,
+.watchlist-controls textarea,
+.watchlist-controls input {
+  position: relative;
+  z-index: 2;
+}
