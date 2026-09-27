@@ -138,3 +138,39 @@ Stackflix uses a React frontend that communicates with two primary external serv
                     │ Add Personal     │
                     │ Notes            │
                     └──────────────────┘  
+
+
+---
+
+## 🎓 Credits
+
+### Stackflix
+
+**Developed by:**  
+**Dylan Florencio**
+
+**Program:** Computer Engineering  
+**University:** Florida Atlantic University (FAU)  
+**Course:** Engineering Design 2  
+**Project:** Stackflix — Movie & TV Discovery and Personal Watchlist Platform
+
+This project was designed and developed as part of the **Engineering Design 2** course at **Florida Atlantic University**. The project demonstrates the application of software engineering principles through the design, development, integration, testing, version control, and deployment of a functional web application.
+
+### Technologies & Services
+
+Special thanks to the technologies and services that made Stackflix possible:
+
+- **React** — Frontend application framework
+- **Vite** — Development and build tooling
+- **Supabase** — Authentication and database services
+- **TMDB API** — Movie and television data
+- **Netlify** — Application deployment
+- **GitHub** — Source control and project hosting
+
+### Project Author
+
+**Dylan Florencio**  
+Computer Engineering  
+Florida Atlantic University
+
+© 2026 Dylan Florencio. All rights reserved.
