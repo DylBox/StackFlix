@@ -67,6 +67,14 @@ Each user's saved information is associated with their account.
 
 ---
 
+**🌐 Deployed Application**
+
+-> (https://stackflix.netlify.app)
+
+**🎥 Demo Video**
+
+---
+
 ## 🏗️ Application Architecture
 
 Stackflix uses a React frontend that communicates with two primary external services: **TMDB** and **Supabase**.
@@ -90,14 +98,43 @@ Stackflix uses a React frontend that communicates with two primary external serv
           │ Providers    │           │              │
           └──────────────┘           └──────────────┘
 
+         ---------------------------------------------
 
-### One small change from the previous version
-
-I put:
-
-**🌐 Deployed Application**
-
--> (https://stackflix.netlify.app)
-
-**🎥 Demo Video**
-
+                    ┌──────────────────┐
+                    │   Open Stackflix │
+                    └────────┬─────────┘
+                            │
+                            ▼
+                    ┌──────────────────┐
+                    │ Explore Movies & │
+                    │    TV Shows      │
+                    └────────┬─────────┘
+                            │
+                            ▼
+                    ┌──────────────────┐
+                    │ Search or Select │
+                    │      Title       │
+                    └────────┬─────────┘
+                            │
+                            ▼
+                    ┌──────────────────┐
+                    │ View Details &   │
+                    │ Streaming Info   │
+                    └────────┬─────────┘
+                            │
+                            ▼
+                    ┌──────────────────┐
+                    │ Login / Register │
+                    └────────┬─────────┘
+                            │
+                            ▼
+                    ┌──────────────────┐
+                    │ Add to Watchlist │
+                    └────────┬─────────┘
+                            │
+                            ▼
+                    ┌──────────────────┐
+                    │ Track, Rate, and │
+                    │ Add Personal     │
+                    │ Notes            │
+                    └──────────────────┘  
