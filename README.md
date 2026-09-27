@@ -139,7 +139,7 @@ Stackflix uses a React frontend that communicates with two primary external serv
                     │ Notes            │
                     └──────────────────┘  
 
-
+```
 ---
 
 ## 🎓 Credits
