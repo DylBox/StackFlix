@@ -42,7 +42,7 @@ write notes, and track TV episode progress.
 
 ## Deployed Application
 
-Missing -> [Add your Netlify URL here]
+-> (https://stackflix.netlify.app)
 
 ## Demo Video
 
