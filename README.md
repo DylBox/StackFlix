@@ -142,6 +142,61 @@ Stackflix uses a React frontend that communicates with two primary external serv
                     └──────────────────┘  
 
 ```
+
+```markdown
+---
+
+## 🛠️ Technologies
+
+- React
+- Vite
+- JavaScript
+- Supabase Authentication
+- Supabase Database
+- TMDB API
+- CSS
+- Netlify
+- GitHub
+
+---
+
+## ⚙️ Setup Instructions
+
+### Prerequisites
+
+- Node.js
+- npm
+- A TMDB API key
+- A Supabase project
+
+### Installation
+
+1. Clone the repository.
+
+2. Navigate into the project directory.
+
+3. Install dependencies:
+
+```bash
+npm install
+```
+
+4. Create a `.env.local` file in the project root and add the required environment variables:
+
+```env
+VITE_TMDB_API_KEY=your_tmdb_api_key
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
+```
+
+5. Start the development server:
+
+```bash
+npm run dev
+```
+
+6. Open the local development URL provided by Vite.
+
 ---
 
 ## 🎓 Credits
