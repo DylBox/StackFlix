@@ -69,11 +69,11 @@ Each user's saved information is associated with their account.
 
 **🌐 Deployed Application**
 
--> (https://stackflix.netlify.app)
+[Open Stackflix](https://stackflix.netlify.app)
 
 **🎥 Demo Video**
 
--> (https://youtu.be/BT591vpG9nA)
+[Watch the Stackflix Demo](https://youtu.be/BT591vpG9nA)
 
 ---
 
